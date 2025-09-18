@@ -1,49 +1,68 @@
-Proyecto Urban Routes
+# Urban Routes - Pruebas Automatizadas 
 
-Proyecto 8 – Creación de un kit personal
+Este proyecto automatiza el flujo completo de pedir un taxi en **Urban Routes**.
 
-Este proyecto automatiza pruebas para la creación de un kit personal dentro de la API de Urban Grocers.
-El objetivo es verificar que el sistema acepte correctamente nombres de kit con diferentes características y devuelva los códigos de respuesta esperados.
+---
 
-⚙️ Qué hace el proyecto
+## 📂 Estructura del proyecto
 
-Crea un usuario nuevo y obtiene su token de autenticación (authToken).
-Crea un kit personal asociado a ese usuario, enviando el token en el encabezado Authorization.
-Ejecuta pruebas automatizadas con Pytest para validar:
-Límites de longitud del nombre (1, 511, 0, 512 caracteres)
-Caracteres especiales, espacios y números
-Casos donde falta el parámetro o se pasa con un tipo incorrecto
-Comprueba que los códigos de respuesta sean correctos:
-201 → creación exitosa
-400 → error por datos inválidos
-🚀 Requisitos previos
+urban_routes_project/
+│
+├─ config/ # Configuración de URLs y headers
+│ └─ settings.py
+│
+├─ data/ # Datos de prueba
+│ └─ data.py
+│
+├─ pages/ # Clases de página (UrbanRoutesPage)
+│ └─ urban_routes_page.py
+│
+├─ tests/ # Pruebas automatizadas
+│ └─ test_order_taxi.py
+│
+└─ README.md
 
-Python 3.9+
-PyCharm o cualquier editor
-Acceso a la API (URL de servicio)
-🛠️ Instalación y configuración
+---
 
-Clona el repositorio:
-git clone https://github.com//Users/charlo.00/qa-project-Urban-Grocers-app-es
-cd proyecto_7_kit
-Crea un entorno virtual
+## 🔹 Requisitos
 
-python3 -m venv .venv source .venv/bin/activate # macOS / Linux
+- Python 3.10+  
+- [Selenium](https://pypi.org/project/selenium/) (`pip install selenium`)  
+- Navegador Chrome o Firefox y su correspondiente driver (`chromedriver` o `geckodriver`)  
+- pytest (`pip install pytest`)  
 
-Instala dependencias
+Opcional:
+- Función `retrieve_phone_code()` incluida en el repositorio para interceptar el código de confirmación de la tarjeta.
 
-pytest -v
+---
 
-Ejecutar pruebas
+## 🔹 Cómo ejecutar la prueba
 
-pytest -v tests/create_kit_name_kit_test.py
+1. Clona el repositorio:
 
-pytest -v
-
-Estructura del proyecto
-
-/Users/charlo.00/qa-project-Urban-Grocers-app-es ├─ configuration.py # Configuración: URLs y headers ├─ data.py # Datos de prueba (cuerpos de las requests) ├─ sender_stand_request.py # Funciones para enviar requests ├─ tests/ │ └─ create_kit_name_kit_test.py # Pruebas con pytest
-
-Lista de comprobación
-
-Nombre con 1 carácter → ✅ 201 Nombre con 511 caracteres → ✅ 201 Nombre vacío → ❌ 400 Nombre con 512 caracteres → ❌ 400 Caracteres especiales permitidos → ✅ 201 Nombre con espacios → ✅ 201 Nombre con números → ✅ 201 Parámetro name faltante → ❌ 400 name con tipo numérico → ❌ 400
+```bash
+git clone <URL_REPOSITORIO>
+cd urban_routes_project
+pip install selenium pytest
+pytest tests/test_order_taxi.py -s
+🔹 Flujo de prueba automatizado
+Configura la dirección de recogida.
+Selecciona la tarifa Comfort.
+Ingresa el número de teléfono del usuario.
+Agrega una tarjeta de crédito:
+Ingresa número, fecha de expiración y CVV.
+Simula cambio de enfoque para habilitar el botón de agregar tarjeta.
+Confirma el código de teléfono usando retrieve_phone_code().
+Envía un mensaje para el conductor.
+Solicita extras: manta, pañuelos y 2 helados.
+Pide un taxi.
+Espera a que aparezca el modal con información del conductor.
+🔹 Notas importantes
+El botón de agregar tarjeta se habilita después de desenfocar el campo CVV.
+La función retrieve_phone_code() se usa para obtener el código de confirmación de la tarjeta automáticamente.
+Se utilizan esperas explícitas (WebDriverWait) para garantizar que los elementos estén visibles y clicables antes de interactuar.
+🔹 Extensiones futuras
+Validar que el modal del conductor muestre datos correctos (nombre, placa, modelo del taxi).
+Manejar diferentes tipos de tarifas y extras.
+Integrar reportes automáticos de ejecución de pruebas.
+Este README sirve como guía completa de cómo funciona la prueba automatizada de Urban Routes y cómo ejecutarla.
