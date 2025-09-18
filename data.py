@@ -1,6 +1,18 @@
-urban_routes_url = 'https://029f5e89-1ed2-457a-8c61-c3ff8b9e57c2.serverhub.tripleten-services.com'
-address_from = 'East 2nd Street, 601'
-address_to = '1300 1st St'
-phone_number = '+1 123 123 12 12'
-card_number, card_code = '1234 5678 9100', '111'
-message_for_driver = 'Muéstrame el camino al museo'
+# data/data.py
+
+# Datos de usuario para pruebas
+user_phone = "+5215551234567"
+user_address = "Av. Reforma 100, Ciudad de México"
+
+# Datos de tarjeta de prueba
+card_number = "4111111111111111"
+card_expiry = "12/25"
+card_cvv = "123"
+
+# Mensaje de prueba
+driver_message = "Por favor, toca el claxon al llegar"
+
+# Función simulada para recuperar código de teléfono
+def retrieve_phone_code():
+    # Aquí normalmente interceptaría el código enviado por la plataforma
+    return "0000"
