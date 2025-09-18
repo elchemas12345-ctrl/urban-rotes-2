@@ -1,6 +1,6 @@
-Proyecto Urban Grocers
+Proyecto Urban Routes
 
-Proyecto 7 – Creación de un kit personal
+Proyecto 8 – Creación de un kit personal
 
 Este proyecto automatiza pruebas para la creación de un kit personal dentro de la API de Urban Grocers.
 El objetivo es verificar que el sistema acepte correctamente nombres de kit con diferentes características y devuelva los códigos de respuesta esperados.
