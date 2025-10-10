@@ -1,77 +1,56 @@
- Proyecto Urban Routes - Automatización QA con Selenium
+# Urban Routes - Automatización de pruebas con Selenium
 
-## 📌 Descripción
-
-Este proyecto automatiza el flujo completo de solicitar un taxi en la plataforma **Urban Routes**, utilizando **Selenium** y el patrón **Page Object Model (POM)**.  
-Incluye la interacción con los elementos principales de la interfaz: dirección, tarifa, número de teléfono, tarjeta de crédito, mensaje al conductor, extras y modal del conductor.
+Este proyecto contiene pruebas automatizadas para la funcionalidad de **Urban Routes**, incluyendo la selección de tarifa, ingreso de dirección, número de teléfono, tarjetas de crédito, extras y la validación de información del conductor.
 
 ---
 
 ## 📂 Estructura del proyecto
-urban_routes_project/
-├── helpers.py # Funciones auxiliares (ej. retrieve_phone_code)
-├── pages.py # Clase principal con localizadores y métodos de interacción
-├── main.py # Ejecuta el flujo completo de pruebas
-├── data.py # Datos de prueba (teléfono, dirección, tarjeta, mensaje)
-├── config.py # Configuración del proyecto (https://cnt-ebf51b5b-10be-4720-9274-f52763742f1c.containerhub.tripleten-services.com?lng=es")
+rban_routes_project/
+│
+├─ config.py # Configuración general (URL base, headers, etc.)
+├─ data.py # Datos de prueba (teléfono, dirección, tarjeta, mensajes)
+├─ helpers.py # Funciones auxiliares (ejemplo: retrieve_phone_code)
+├─ pages.py # Clase UrbanRoutesPage: localizadores y métodos de interacción
+├─ main.py # Ejecución de pruebas completas
+└─ tests/ # Carpeta que contiene las pruebas automatizadas
+└─ test_taxi_flow.py
 
 ---
 
-## ⚙️ Requisitos
+## 🛠️ Requisitos
 
 - Python 3.13+
-- Selenium 4+
-- ChromeDriver (compatible con la versión de Chrome instalada)
-- Pytest (opcional si se desea correr pruebas en modo unitario)
+- Selenium
+- WebDriver para Chrome (Chromedriver)
+- Pytest (para ejecutar pruebas)
 
 Instalación de dependencias:
 
 ```bash
 pip install selenium pytest
 
-📝 Configuración
-Definir la URL del servicio en config.py:
-URL_SERVICE = "https://cnt-ebf51b5b-10be-4720-9274-f52763742f1c.containerhub.tripleten-services.com?lng=es"
-Definir datos de prueba en data.py:
-user_phone = "+5215551234567"
-user_address = "Av. Reforma 100, Ciudad de México"
-card_number = "4111111111111111"
-card_expiry = "12/25"
-card_cvv = "123"
-driver_message = "Por favor, toca el claxon al llegar"
-🧩 Flujo de pruebas automatizado
-El flujo completo cubre los siguientes pasos:
-Configurar la dirección.
-Seleccionar la tarifa Comfort.
-Ingresar el número de teléfono.
-Agregar una tarjeta de crédito.
-Confirmar el código de teléfono mediante retrieve_phone_code().
-Escribir un mensaje para el conductor.
-Solicitar manta y pañuelos.
-Pedir 2 helados.
-Solicitar el taxi y esperar a que aparezca la información del conductor en el modal.
-🚀 Cómo ejecutar
-Activar tu entorno virtual (si tienes uno):
-source .venv/bin/activate   # macOS/Linux
-# o
-.venv\Scripts\activate      # Windows
-Ejecutar el flujo de pruebas con Python:
+---
+🧪 Ejecución de pruebas
+1️⃣ Ejecutar todas las pruebas con Pytest
+pytest -v tests/
+2️⃣ Ejecutar pruebas desde main.py (flujo completo)
 python main.py
-Salida esperada (ejemplo):
-Dirección configurada ✅
-Tarifa Comfort seleccionada ✅
-Número de teléfono ingresado ✅
-Tarjeta agregada ✅
-Código de confirmación ingresado ✅
-Mensaje al conductor enviado ✅
-Manta y pañuelos solicitados ✅
-2 helados solicitados ✅
-Información del conductor visible ✅
-✅ Buenas prácticas
-Todos los datos de prueba están centralizados en data.py para fácil mantenimiento.
-La URL del servicio se gestiona desde config.py.
-La función retrieve_phone_code() permite simular la confirmación de tarjeta sin depender de SMS reales.
-La validación del modal del conductor garantiza que el flujo completo se haya ejecutado correctamente.
-⚠️ Nota
-El proyecto utiliza Selenium para interactuar con un servidor web. Si la URL del servicio no está disponible o cambia la estructura de la página, las pruebas pueden fallar.
-Es recomendable ejecutar los tests en un entorno de pruebas controlado.
+Esto simula todo el proceso de pedir un taxi paso a paso, mostrando mensajes en consola al completar cada acción.
+
+🔹 Flujo de pruebas cubierto
+Configurar dirección.
+Seleccionar tarifa Comfort.
+Rellenar número de teléfono.
+Agregar tarjeta de crédito (incluye confirmación de código).
+Escribir un mensaje para el conductor.
+Pedir manta y pañuelos.
+Pedir 2 helados.
+Solicitar taxi y esperar información del conductor.
+💡 Notas
+La función retrieve_phone_code() se encuentra en helpers.py y ya devuelve automáticamente el código de confirmación, no es necesario modificarla.
+Todas las pruebas están diseñadas para ejecutarse en un entorno real con el servicio activo.
+Se recomienda tener la ventana del navegador maximizada para evitar problemas con elementos invisibles al ejecutar Selenium.
+
+
+
+
